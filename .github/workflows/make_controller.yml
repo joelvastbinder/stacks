@@ -1,0 +1,22 @@
+name: Build controller for cortex
+
+on:
+  push:
+    branches: [ "master", "joel-interview" ]
+  pull_request:
+    branches: [ "master", "joel-interview" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: sudo apt install -y build-essential binutils-arm-none-eabi
+
+    - name: Run check
+      run:  make -C controller/build/ble5-ctr/gcc/ CPU=cortex-m
+
