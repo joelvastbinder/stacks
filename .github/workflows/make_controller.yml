@@ -13,15 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '2.7'
 
     - name: Apt update
       run: sudo apt update
 
     - name: Install dependencies
       run: sudo apt install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi python2
-
-    - name: Make python2 default
-      run: update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 
     - name: Run check
       run:  make -C controller/build/ble5-ctr/gcc/ CPU=cortex-m4
