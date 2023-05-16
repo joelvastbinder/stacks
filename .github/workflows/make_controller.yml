@@ -1,4 +1,4 @@
-name: Build controller for cortex
+name: Build controller for cortex-m4
 
 on:
   push:
@@ -11,8 +11,14 @@ jobs:
     container: jvastbinder/packetcraft_interview:build-packetcraft-controller
 
     steps:
-
     - uses: actions/checkout@v3
+
     - name: Run check
       run:  make -C controller/build/ble5-ctr/gcc/ CPU=cortex-m4
+
+    - name: 'Upload elf'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ble5-ctr-cortexm4-elf
+        path: controller/build/ble5-ctr/gcc/bin/ble5-ctr.elf
 
